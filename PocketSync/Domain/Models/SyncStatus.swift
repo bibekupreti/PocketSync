@@ -13,3 +13,10 @@ enum SyncStatus: Equatable {
     case synced
     case failed(String)
 }
+
+enum SyncState: String, Codable {
+    case pending
+    case syncing
+    case synced
+    case failed
+}
