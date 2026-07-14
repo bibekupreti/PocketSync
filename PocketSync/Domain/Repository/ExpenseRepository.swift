@@ -10,6 +10,6 @@ import Foundation
 protocol ExpenseRepository {
     func addExpense(_ expense: Expense) async throws
     func updateExpense(_ expense: Expense) async throws
-    func fetchExpense() async throws -> [Expense]
+    func fetchExpenses() async throws -> [Expense]
     func deleteExpense(id: UUID) async throws
 }

@@ -10,23 +10,8 @@ import Foundation
 enum ExpenseMapper {
     
     static func toEntity(from expense: Expense) -> ExpenseEntity {
-        let syncState: SyncState
-        let syncErrorMessage: String?
-        
-        switch expense.syncStatus {
-        case .pending:
-            syncState = .pending
-            syncErrorMessage = nil
-        case .syncing:
-            syncState = .syncing
-            syncErrorMessage = nil
-        case .synced:
-            syncState = .synced
-            syncErrorMessage = nil
-        case .failed(let message):
-            syncState = .failed
-            syncErrorMessage = message
-        }
+
+        let syncPersistenceValue = SyncStatusMapper.toEntity(from : expense.syncStatus)
         
         return(
             ExpenseEntity(id: expense.id,
@@ -34,8 +19,8 @@ enum ExpenseMapper {
                           currency: expense.currency.rawValue,
                           category: expense.category.rawValue,
                           note: expense.note,
-                          syncState: syncState,
-                          syncErrorMessage: syncErrorMessage)
+                          syncState: syncPersistenceValue.state,
+                          syncErrorMessage: syncPersistenceValue.errorMessage)
         )
     }
     
@@ -51,23 +36,7 @@ enum ExpenseMapper {
             fatalError("Category mapping failed")
         }
         
-        let syncStatus: SyncStatus
-        
-        switch entity.syncState {
-            
-        case .pending:
-            syncStatus = .pending
-            
-        case .syncing:
-            syncStatus = .syncing
-            
-        case .synced:
-            syncStatus = .synced
-            
-        case .failed:
-            syncStatus = .failed(entity.syncErrorMessage ?? "Unknown error")
-            
-        }
+        let syncStatus: SyncStatus = SyncStatusMapper.toDomain(state: entity.syncState, errorMessage: entity.syncErrorMessage)
         
         return (
             Expense(id: entity.id,
@@ -79,6 +48,18 @@ enum ExpenseMapper {
                     updatedAt: entity.updatedAt,
                     syncStatus: syncStatus)
         )
+    }
+    
+    static func updateEntity(_ entity: ExpenseEntity, with expense: Expense) {
+        let syncPersistenceValue = SyncStatusMapper.toEntity(from: expense.syncStatus)
+        
+        entity.amount = expense.amount
+        entity.currency = expense.currency.rawValue
+        entity.category = expense.category.rawValue
+        entity.note = expense.note
+        entity.updatedAt = expense.updatedAt
+        entity.syncState = syncPersistenceValue.state
+        entity.syncErrorMessage = syncPersistenceValue.errorMessage
     }
     
 }

@@ -20,3 +20,8 @@ enum SyncState: String, Codable {
     case synced
     case failed
 }
+
+struct SyncPersistenceValue {
+    let state: SyncState
+    let errorMessage: String?
+}
