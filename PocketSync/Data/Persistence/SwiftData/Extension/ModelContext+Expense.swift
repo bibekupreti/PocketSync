@@ -10,7 +10,7 @@ import SwiftData
 
 extension ModelContext {
     
-    func fetchExpenseEntity(with id: UUID) throws -> ExpenseEntity {
+    func fetchExpenseEntity(with id: UUID) throws(RepositoryError) -> ExpenseEntity {
         let descriptor = FetchDescriptor<ExpenseEntity>(
             predicate: #Predicate {
                 $0.id == id
@@ -31,7 +31,7 @@ extension ModelContext {
         return entity
     }
     
-    func saveChanges() throws {
+    func saveChanges() throws(RepositoryError) {
         do {
             try save()
         } catch {

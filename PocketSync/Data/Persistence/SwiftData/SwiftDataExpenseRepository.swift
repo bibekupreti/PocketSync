@@ -19,19 +19,19 @@ final class SwiftDataExpenseRepository: ExpenseRepository {
     }
     
     // MARK: - ExpenseRepository
-    func addExpense(_ expense: Expense) async throws {
+    func addExpense(_ expense: Expense) async throws(RepositoryError) {
         let entity = ExpenseMapper.toEntity(from: expense)
         modelContext.insert(entity)
         try modelContext.saveChanges()
     }
     
-    func updateExpense(_ expense: Expense) async throws {
+    func updateExpense(_ expense: Expense) async throws(RepositoryError) {
         let entity = try modelContext.fetchExpenseEntity(with: expense.id)
         ExpenseMapper.updateEntity(entity, with: expense)
         try modelContext.saveChanges()
     }
     
-    func fetchExpenses() async throws -> [Expense] {
+    func fetchExpenses() async throws(RepositoryError) -> [Expense] {
         let descriptor = FetchDescriptor<ExpenseEntity>()
         let entities: [ExpenseEntity]
         do {
@@ -44,7 +44,7 @@ final class SwiftDataExpenseRepository: ExpenseRepository {
         }
     }
     
-    func deleteExpense(id: UUID) async throws {
+    func deleteExpense(id: UUID) async throws(RepositoryError) {
         let entity = try modelContext.fetchExpenseEntity(with: id)
         modelContext.delete(entity)
         try modelContext.saveChanges()
