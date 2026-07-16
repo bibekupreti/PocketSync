@@ -1,10 +1,16 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Add Item" : {
+    "Add" : {
 
     },
-    "Item at %@" : {
+    "Category" : {
+
+    },
+    "Expense" : {
+
+    },
+    "Home" : {
 
     },
     "repository.error.deleteFailed" : {
@@ -75,7 +81,7 @@
         }
       }
     },
-    "Select an item" : {
+    "Welcome to home" : {
 
     }
   },
