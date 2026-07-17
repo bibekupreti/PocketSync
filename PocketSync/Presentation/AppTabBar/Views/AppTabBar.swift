@@ -10,7 +10,7 @@ import SwiftUI
 struct AppTabBar: View {
     
     @State private var selection: String = "contacts"
-        @State private var searchText: String = ""
+    @State private var searchText: String = ""
     
     var body: some View {
         

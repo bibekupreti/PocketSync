@@ -24,4 +24,8 @@ enum L10n {
         )
     }
     
+    enum DashboardString {
+        
+    }
+    
 }
