@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct AppTabBar: View {
+struct AppTabBarView: View {
+    
+    let homeViewModel: HomeViewModel
     
     @State private var selection: String = "contacts"
     @State private var searchText: String = ""
@@ -29,12 +31,6 @@ struct AppTabBar: View {
             }
         }
         
-    }
-}
-
-struct HomeView: View {
-    var body: some View {
-        Text("Welcome to home")
     }
 }
 

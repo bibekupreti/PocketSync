@@ -10,22 +10,22 @@ import SwiftData
 
 @main
 struct PocketSyncApp: App {
-//    var sharedModelContainer: ModelContainer = {
-//        let schema = Schema([
-//            Item.self,
-//        ])
-//        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-//
-//        do {
-//            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-//        } catch {
-//            fatalError("Could not create ModelContainer: \(error)")
-//        }
-//    }()
+    
+    private let container: DependencyContainer
+    
+    init() {
+        do {
+            container = try DependencyContainer()
+        } catch {
+            fatalError("Failed to initialize dependency container \(error)")
+        }
+    }
 
     var body: some Scene {
         WindowGroup {
-            AppTabBar()
+            AppTabBarView(
+                homeViewModel: container.viewModelFactory.makeHomeViewModel()
+            )
         }
 //        .modelContainer(sharedModelContainer)
     }
