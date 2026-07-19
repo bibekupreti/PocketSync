@@ -21,11 +21,23 @@ struct HomeView: View {
     
     // MARK: - Body
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Home Content")
+        }
+        .navigationTitle("Dashboard")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    // Filter action
+                    print("Filter tapped")
+                } label: {
+                    Image(systemName: "line.3.horizontal.decrease.circle")
+                        .font(.title3)
+                }
+            }
+        }
     }
     
 }
 
-#Preview {
-    HomeView(viewModel: HomeViewModel(repository: SwiftDataExpenseRepository(modelContext: ModelContext(ModelContainer(for: ExpenseEntity.self)))))
-}

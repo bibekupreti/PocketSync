@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AppTabBarView: View {
     
-    let homeViewModel: HomeViewModel
+    let viewModel: HomeViewModel
     
     @State private var selection: String = "contacts"
     @State private var searchText: String = ""
@@ -17,17 +18,29 @@ struct AppTabBarView: View {
     var body: some View {
         
         TabView(selection: $selection) {
+            
             Tab("Home", systemImage: "house.fill", value: "house") {
-                HomeView()
+                NavigationStack {
+                    HomeView(viewModel: viewModel)
+                }
             }
+            
             Tab("Expense", systemImage: "creditcard", value: "expense") {
-                ExpenseView()
+                NavigationStack {
+                    ExpenseView()
+                }
             }
+            
             Tab("Category", systemImage: "square.grid.2x2", value: "category") {
-                CategoryView()
+                NavigationStack {
+                    CategoryView()
+                }
             }
+            
             Tab("Add", systemImage: "plus.circle", value: "add", role: .search) {
-                AddExpenseView()
+                NavigationStack {
+                    AddExpenseView()
+                }
             }
         }
         
@@ -52,6 +65,3 @@ struct AddExpenseView: View {
     }
 }
 
-#Preview {
-    AppTabBar()
-}

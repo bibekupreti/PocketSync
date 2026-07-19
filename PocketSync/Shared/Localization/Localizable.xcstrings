@@ -7,10 +7,16 @@
     "Category" : {
 
     },
+    "Dashboard" : {
+
+    },
     "Expense" : {
 
     },
     "Home" : {
+
+    },
+    "Home Content" : {
 
     },
     "repository.error.deleteFailed" : {

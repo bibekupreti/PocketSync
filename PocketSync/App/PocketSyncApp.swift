@@ -24,7 +24,7 @@ struct PocketSyncApp: App {
     var body: some Scene {
         WindowGroup {
             AppTabBarView(
-                homeViewModel: container.viewModelFactory.makeHomeViewModel()
+                viewModel: container.viewModelFactory.makeHomeViewModel()
             )
         }
 //        .modelContainer(sharedModelContainer)
