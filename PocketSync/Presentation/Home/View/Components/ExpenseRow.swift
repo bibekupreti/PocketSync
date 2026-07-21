@@ -29,11 +29,11 @@ struct ExpenseRow: View {
             }
         }
         .padding(16)
-        .background(AppColor.background)
+        .background(AppColor.card)
     }
     
 }
-// Working on some view
+
 struct IconContainer: View {
 
     let systemImage: String
