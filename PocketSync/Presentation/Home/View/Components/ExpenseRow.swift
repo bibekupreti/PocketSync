@@ -14,18 +14,18 @@ struct ExpenseRow: View {
             IconContainer(systemImage: "takeoutbag.and.cup.and.straw")
             VStack(alignment: .leading) {
                 Text("Coffee")
-                    .sectionTitleStyle()
+                    .bodyStyle()
                     .fontWeight(.bold)
                 Text("Food and drinks")
-                    .bodyStyle()
+                    .captionStyle()
             }
             Spacer()
             VStack(alignment: .leading) {
                 Text("$4.50")
-                    .sectionTitleStyle()
+                    .bodyStyle()
                     .fontWeight(.bold)
                 Text("Today")
-                    .bodyStyle()
+                    .captionStyle()
             }
         }
         .padding(16)

@@ -14,48 +14,7 @@ struct HomeView: View {
     @State
     private var viewModel: HomeViewModel
     
-    @State private var staticExpenses: [Expense] = [
-        Expense(id: UUID(),
-                amount: 100,
-                currency: .npr,
-                category: .food,
-                note: "Food and drinks",
-                createAt: Date.now,
-                updatedAt: Date.now,
-                syncStatus: .pending),
-        Expense(id: UUID(),
-                amount: 10230,
-                currency: .npr,
-                category: .food,
-                note: "Home Shopping",
-                createAt: Date.now,
-                updatedAt: Date.now,
-                syncStatus: .pending),
-        Expense(id: UUID(),
-                amount: 1000,
-                currency: .npr,
-                category: .food,
-                note: "utility",
-                createAt: Date.now,
-                updatedAt: Date.now,
-                syncStatus: .pending),
-        Expense(id: UUID(),
-                amount: 1002,
-                currency: .npr,
-                category: .food,
-                note: "Bills",
-                createAt: Date.now,
-                updatedAt: Date.now,
-                syncStatus: .pending),
-        Expense(id: UUID(),
-                amount: 500,
-                currency: .npr,
-                category: .food,
-                note: "Credit",
-                createAt: Date.now,
-                updatedAt: Date.now,
-                syncStatus: .pending)
-    ]
+    private let expenses = PreviewData.expenses
     
     // MARK: - Initialization
     init(viewModel: HomeViewModel) {
@@ -65,12 +24,65 @@ struct HomeView: View {
     // MARK: - Body
     var body: some View {
         VStack {
-            List {
-                ForEach(staticExpenses) { item in
-                    ExpenseRow()
+            HStack {
+                Text("Recent Expenses")
+                    .bodyStyle()
+                    .fontWeight(.bold)
+                Spacer()
+                Button {
+                    print("See All tapped")
+                } label: {
+                    Text("See All")
+                        .bodyStyle()
+                        .fontWeight(.bold)
+                        .foregroundStyle(AppColor.accent)
                 }
             }
+            .padding()
+            
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("This month")
+                        .bodyStyle()
+                    Text("$1243.50")
+                        .sectionTitleStyle()
+                        .fontWeight(.bold)
+                    Text("Total Spent")
+                        .captionStyle()
+                        .fontWeight(.bold)
+                }
+                Spacer()
+                SimpleAreaChartView(points: samplePoints)
+                    .frame(width: 200, height: 100)
+            }
+            .padding()
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .background(AppColor.card)
+            .padding()
+            
+            List {
+                ForEach(expenses) { item in
+                    ExpenseRow()
+                }
+                .listRowInsets(.init())
+            }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .padding(.horizontal, 16)
+            
+            HStack {
+                IconContainer(systemImage: "takeoutbag.and.cup.and.straw")
+                VStack(alignment: .leading) {
+                    Text("All data is saved locally")
+                    Text("Expenses will sync when you are online")
+                }
+            }
+            .padding(16)
+            .background(AppColor.card)
+            Spacer()
         }
+        .background(AppColor.background)
         .navigationTitle("Dashboard")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -88,3 +100,8 @@ struct HomeView: View {
     
 }
 
+#Preview {
+    NavigationStack {
+        HomeView(viewModel: MockViewModelFactory.makeHomeViewModel())
+    }
+}

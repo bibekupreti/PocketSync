@@ -25,6 +25,9 @@
     "Home" : {
 
     },
+    "Recent Expenses" : {
+
+    },
     "repository.error.deleteFailed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -92,6 +95,9 @@
           }
         }
       }
+    },
+    "See All" : {
+
     },
     "Today" : {
 
