@@ -59,9 +59,4 @@ struct CategoryView: View {
     }
 }
 
-struct AddExpenseView: View {
-    var body: some View {
-        Text("Welcome to home")
-    }
-}
 

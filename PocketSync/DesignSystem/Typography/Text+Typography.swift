@@ -9,28 +9,32 @@ import SwiftUI
 
 extension Text {
     
-    func screenTitleStyle() -> some View {
+    func screenTitleStyle(fontWeight: Font.Weight = .regular) -> some View {
         self
             .font(AppTypography.screenTitle)
             .foregroundStyle(.primary)
+            .fontWeight(fontWeight)
     }
     
-    func sectionTitleStyle() -> some View {
+    func sectionTitleStyle(fontWeight: Font.Weight = .regular) -> some View {
         self
             .font(AppTypography.sectionTitle)
             .foregroundStyle(.primary)
+            .fontWeight(fontWeight)
     }
     
-    func bodyStyle() -> some View {
+    func bodyStyle(fontWeight: Font.Weight = .regular) -> some View {
         self
             .font(AppTypography.body)
             .foregroundStyle(.primary)
+            .fontWeight(fontWeight)
     }
     
-    func captionStyle() -> some View {
+    func captionStyle(fontWeight: Font.Weight = .regular) -> some View {
         self
             .font(AppTypography.caption)
             .foregroundStyle(.secondary)
+            .fontWeight(fontWeight)
     }
     
     func buttonStyle() -> some View {

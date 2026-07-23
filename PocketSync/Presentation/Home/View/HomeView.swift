@@ -24,6 +24,10 @@ struct HomeView: View {
     // MARK: - Body
     var body: some View {
         VStack {
+            
+            TotalSpentCard(totalSpent: 12345.0)
+                .padding()
+            
             HStack {
                 Text("Recent Expenses")
                     .bodyStyle()
@@ -38,26 +42,6 @@ struct HomeView: View {
                         .foregroundStyle(AppColor.accent)
                 }
             }
-            .padding()
-            
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("This month")
-                        .bodyStyle()
-                    Text("$1243.50")
-                        .sectionTitleStyle()
-                        .fontWeight(.bold)
-                    Text("Total Spent")
-                        .captionStyle()
-                        .fontWeight(.bold)
-                }
-                Spacer()
-                SimpleAreaChartView(points: samplePoints)
-                    .frame(width: 200, height: 100)
-            }
-            .padding()
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-            .background(AppColor.card)
             .padding()
             
             List {
@@ -82,7 +66,7 @@ struct HomeView: View {
             .background(AppColor.card)
             Spacer()
         }
-        .background(AppColor.background)
+        .background(AppColor.background, ignoresSafeAreaEdges: [])
         .navigationTitle("Dashboard")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -96,6 +80,8 @@ struct HomeView: View {
                 }
             }
         }
+        .toolbarBackground(AppColor.background, for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
     }
     
 }

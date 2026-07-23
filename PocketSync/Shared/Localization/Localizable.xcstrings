@@ -1,10 +1,28 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
+    "$" : {
+
+    },
     "$4.50" : {
 
     },
+    "0.00" : {
+
+    },
     "Add" : {
+
+    },
+    "Add Expense" : {
+
+    },
+    "All data is saved locally" : {
+
+    },
+    "Cancel" : {
 
     },
     "Category" : {
@@ -16,13 +34,22 @@
     "Dashboard" : {
 
     },
+    "Day" : {
+
+    },
     "Expense" : {
+
+    },
+    "Expenses will sync when you are online" : {
 
     },
     "Food and drinks" : {
 
     },
     "Home" : {
+
+    },
+    "Payment Method" : {
 
     },
     "Recent Expenses" : {
@@ -96,10 +123,22 @@
         }
       }
     },
+    "Save" : {
+
+    },
     "See All" : {
 
     },
+    "This Month" : {
+
+    },
     "Today" : {
+
+    },
+    "Total Spent" : {
+
+    },
+    "Value" : {
 
     },
     "Welcome to home" : {
