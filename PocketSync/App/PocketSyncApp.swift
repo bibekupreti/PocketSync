@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 @main
 struct PocketSyncApp: App {
@@ -19,14 +20,18 @@ struct PocketSyncApp: App {
         } catch {
             fatalError("Failed to initialize dependency container \(error)")
         }
+        try? Tips.configure([
+            .displayFrequency(.immediate),
+            .datastoreLocation(.applicationDefault)
+        ])
     }
-
+    
     var body: some Scene {
         WindowGroup {
             AppTabBarView(
                 viewModel: container.viewModelFactory.makeHomeViewModel()
             )
         }
-//        .modelContainer(sharedModelContainer)
+        //        .modelContainer(sharedModelContainer)
     }
 }

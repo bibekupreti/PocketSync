@@ -19,7 +19,7 @@ struct TotalSpentCard: View {
                 Text("This Month")
                     .bodyStyle()
                 Text(verbatim: "$ \(totalSpent)")
-                    .screenTitleStyle(fontWeight: .bold)
+                    .screenTitleStyle(fontWeight: .bold, lineLimit: 2)
                 Text("Total Spent")
                     .captionStyle()
             }

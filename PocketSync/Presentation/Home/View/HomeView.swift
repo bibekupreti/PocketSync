@@ -7,13 +7,14 @@
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 struct HomeView: View {
     
     // MARK: - Properties
     @State
     private var viewModel: HomeViewModel
-    
+    @AppStorage("hasSeenLocalDataTip") private var hasSeenLocalDataTip = false
     private let expenses = PreviewData.expenses
     
     // MARK: - Initialization
@@ -23,26 +24,25 @@ struct HomeView: View {
     
     // MARK: - Body
     var body: some View {
-        VStack {
-            
+        VStack(alignment: .leading) {
+            NetworkStatusView(networkStatus: .online)
+                .padding(.leading, 16)
             TotalSpentCard(totalSpent: 12345.0)
                 .padding()
             
             HStack {
                 Text("Recent Expenses")
-                    .bodyStyle()
-                    .fontWeight(.bold)
+                    .bodyStyle(fontWeight: .semibold)
                 Spacer()
                 Button {
                     print("See All tapped")
                 } label: {
                     Text("See All")
-                        .bodyStyle()
-                        .fontWeight(.bold)
+                        .bodyStyle(fontWeight: .semibold)
                         .foregroundStyle(AppColor.accent)
                 }
             }
-            .padding()
+            .padding(.horizontal, 16)
             
             List {
                 ForEach(expenses) { item in
@@ -53,20 +53,37 @@ struct HomeView: View {
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .padding(.horizontal, 16)
-            
-            HStack {
-                IconContainer(systemImage: "takeoutbag.and.cup.and.straw")
-                VStack(alignment: .leading) {
-                    Text("All data is saved locally")
-                    Text("Expenses will sync when you are online")
+            .padding()
+
+            if !hasSeenLocalDataTip {
+                HStack(alignment: .top) {
+                    IconContainer(systemImage: "checkmark.icloud")
+                    VStack(alignment: .leading) {
+                        Text("All data is saved locally")
+                            .bodyStyle()
+                        Text("Expenses will sync when you are online")
+                            .captionStyle()
+                    }
+                    Spacer()
+                    Button {
+                        hasSeenLocalDataTip = true
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(AppColor.accent)
+                    }
                 }
+                .padding(16)
+                .frame(maxWidth: .infinity)
+                .background(AppColor.card)
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .padding(.horizontal)
+                
             }
-            .padding(16)
-            .background(AppColor.card)
+            
+            
             Spacer()
         }
-        .background(AppColor.background, ignoresSafeAreaEdges: [])
+        .background(AppColor.background)
         .navigationTitle("Dashboard")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -91,3 +108,4 @@ struct HomeView: View {
         HomeView(viewModel: MockViewModelFactory.makeHomeViewModel())
     }
 }
+

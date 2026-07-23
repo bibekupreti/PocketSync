@@ -52,6 +52,7 @@ struct SpendingCard: View {
                 )
             }
             .frame(height: 60)
+            .frame(minWidth: 80)
             .chartXAxis(.hidden)
             .chartYAxis(.hidden)
         }
