@@ -12,6 +12,7 @@ struct Expense: Identifiable, Equatable, Sendable {
     let amount: Decimal
     let currency: Currency
     let category: ExpenseCategory
+    let paymentMethod: PaymentMethod
     let note: String
     let createdAt: Date
     let updatedAt: Date

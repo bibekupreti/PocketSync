@@ -46,6 +46,7 @@ struct ExpenseRow: View {
                     amount: 4.05,
                     currency: .usd,
                     category: .food,
+                    paymentMethod: .cash,
                     note: "No latest note",
                     createdAt: Date.distantFuture,
                     updatedAt: Date.now,

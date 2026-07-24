@@ -18,6 +18,7 @@ enum ExpenseMapper {
                           amount: expense.amount,
                           currency: expense.currency.rawValue,
                           category: expense.category.rawValue,
+                          paymentMethod: expense.paymentMethod.rawValue,
                           note: expense.note,
                           syncState: syncPersistenceValue.state,
                           syncErrorMessage: syncPersistenceValue.errorMessage)
@@ -43,6 +44,7 @@ enum ExpenseMapper {
                     amount: entity.amount,
                     currency: currency,
                     category: category,
+                    paymentMethod: PaymentMethod(rawValue: entity.paymentMethod) ?? PaymentMethod.cash,
                     note: entity.note,
                     createdAt: entity.createdAt,
                     updatedAt: entity.updatedAt,

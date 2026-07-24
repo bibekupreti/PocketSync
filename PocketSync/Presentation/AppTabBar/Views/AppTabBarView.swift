@@ -19,7 +19,7 @@ struct AppTabBarView: View {
         
         TabView(selection: $selection) {
             
-            Tab("Home", systemImage: "house.fill", value: "house") {
+            Tab("Home", systemImage: "house", value: "house") {
                 NavigationStack {
                     HomeView(viewModel: viewModel)
                 }
@@ -31,17 +31,12 @@ struct AppTabBarView: View {
                 }
             }
             
-            Tab("Category", systemImage: "square.grid.2x2", value: "category") {
+            Tab("Sync Status", systemImage: "cloud", value: "status") {
                 NavigationStack {
-                    CategoryView()
+                    SyncStatusView()
                 }
             }
             
-            Tab("Add", systemImage: "plus.circle", value: "add", role: .search) {
-                NavigationStack {
-                    AddExpenseView()
-                }
-            }
         }
         .tint(AppColor.accent)
         
@@ -54,7 +49,7 @@ struct ExpenseView: View {
     }
 }
 
-struct CategoryView: View {
+struct SyncStatusView: View {
     var body: some View {
         Text("Welcome to home")
     }

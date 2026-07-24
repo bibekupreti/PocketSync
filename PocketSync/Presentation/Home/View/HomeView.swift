@@ -19,6 +19,7 @@ struct HomeView: View {
     // MARK: - Initialization
     init(viewModel: HomeViewModel) {
         _viewModel = State(initialValue: viewModel)
+        hasSeenHomeToolTip = false
     }
     
     // MARK: - Body

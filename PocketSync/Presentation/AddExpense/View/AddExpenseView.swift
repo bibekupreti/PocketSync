@@ -16,19 +16,22 @@ struct AddExpenseView: View {
     
     // MARK: - Properties
     @State private var selectedSegment: AddExpenseSegment = .expense
+    @State private var selectedAmount: String = "0.00"
     
     // MARK: - Body
     var body: some View {
         VStack {
-            AppSegmentControl(segments: AddExpenseSegment.allCases, selection: $selectedSegment, label: { $0.rawValue })
-                .padding()
+            AppSegmentControl(
+                segments: AddExpenseSegment.allCases,
+                selection: $selectedSegment,
+                label: { $0.rawValue }
+            )
+            .padding()
             HStack {
                 Text("$")
                     .screenTitleStyle()
-                    .fontWeight(.medium)
-                Text("0.00")
+                Text(selectedAmount)
                     .screenTitleStyle()
-                    .fontWeight(.ultraLight)
             }
             .padding(32)
             ExpenseFormView()
@@ -48,7 +51,6 @@ struct AddExpenseView: View {
                     //                    save()
                     //                    dismiss()
                 }
-                .fontWeight(.semibold)
                 // Disable until the form is actually valid, e.g.:
                 // .disabled(category == nil || amount == 0)
             }

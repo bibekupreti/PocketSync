@@ -28,7 +28,7 @@ final class HomeViewModel {
     // MARK: - Initialization
     init(repository: ExpenseRepository) {
         self.repository = repository
-//        self.expenses = PreviewData.expenses
+        self.expenses = PreviewData.expenses
     }
     
     // MARK: - Methods
