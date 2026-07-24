@@ -44,7 +44,7 @@ enum ExpenseMapper {
                     currency: currency,
                     category: category,
                     note: entity.note,
-                    createAt: entity.createdAt,
+                    createdAt: entity.createdAt,
                     updatedAt: entity.updatedAt,
                     syncStatus: syncStatus)
         )

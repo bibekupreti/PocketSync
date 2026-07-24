@@ -10,15 +10,15 @@ import SwiftUI
 struct TotalSpentCard: View {
     
     // MARK: - Propertie
-    var totalSpent: Decimal
+    var totalSpent: String
     
     // MARK: - Body
     var body: some View {
         HStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("This Month")
                     .bodyStyle()
-                Text(verbatim: "$ \(totalSpent)")
+                Text(totalSpent)
                     .screenTitleStyle(fontWeight: .bold, lineLimit: 2)
                 Text("Total Spent")
                     .captionStyle()
@@ -26,12 +26,13 @@ struct TotalSpentCard: View {
             SpendingCard()
         }
         .padding()
-        .background(AppColor.card, ignoresSafeAreaEdges: [])
+        .background(AppColor.card)
         .clipShape(RoundedRectangle(cornerRadius: 16))
+        .padding(.vertical, 16)
     }
     
 }
 
 #Preview {
-    TotalSpentCard(totalSpent: 1243.50)
+    TotalSpentCard(totalSpent: "$ 1243.50")
 }

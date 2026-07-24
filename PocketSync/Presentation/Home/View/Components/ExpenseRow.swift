@@ -9,47 +9,47 @@ import SwiftUI
 
 struct ExpenseRow: View {
     
-    var body: some View {
-        HStack(alignment: .center, spacing: 16) {
-            IconContainer(systemImage: "takeoutbag.and.cup.and.straw")
-            VStack(alignment: .leading) {
-                Text("Coffee")
-                    .bodyStyle()
-                    .fontWeight(.bold)
-                Text("Food and drinks")
-                    .captionStyle()
-            }
-            Spacer()
-            VStack(alignment: .leading) {
-                Text("$4.50")
-                    .bodyStyle()
-                    .fontWeight(.bold)
-                Text("Today")
-                    .captionStyle()
-            }
-        }
-        .padding(16)
-        .background(AppColor.card)
-    }
+    let expense: Expense
     
-}
-
-struct IconContainer: View {
-
-    let systemImage: String
-    var size: CGFloat = 44
-
     var body: some View {
-        Image(systemName: systemImage)
-            .font(.headline)
-            .foregroundStyle(AppColor.accent)
-            .frame(width: size, height: size)
-            .background(Color(.secondarySystemGroupedBackground))
-            .clipShape(Circle())
+        VStack {
+            HStack(alignment: .center, spacing: 16) {
+                
+                IconContainer(systemImage: expense.category.systemImage, tintColor: expense.category.tint)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(expense.category.rawValue)
+                        .bodyStyle(lineLimit: 1)
+                    Text(expense.note)
+                        .captionStyle(lineLimit: 2)
+                }
+                Spacer()
+                VStack(alignment: .trailing, spacing: 4) {
+                    Text(verbatim: "\(expense.currency.rawValue) \(expense.amount)")
+                        .bodyStyle(lineLimit: 1)
+                    Text(expense.createdAtDisplayString)
+                        .captionStyle(lineLimit: 1)
+                }
+            }
+            .padding(16)
+            .background(AppColor.card)
+         Divider()
+                .padding(.horizontal, 16)
+        }
     }
     
 }
 
 #Preview {
-    ExpenseRow()
+    ExpenseRow(expense:
+                Expense(
+                    id: UUID(),
+                    amount: 4.05,
+                    currency: .usd,
+                    category: .food,
+                    note: "No latest note",
+                    createdAt: Date.distantFuture,
+                    updatedAt: Date.now,
+                    syncStatus: .pending
+                )
+    )
 }

@@ -7,9 +7,6 @@
     "$" : {
 
     },
-    "$4.50" : {
-
-    },
     "0.00" : {
 
     },
@@ -19,16 +16,10 @@
     "Add Expense" : {
 
     },
-    "All data is saved locally" : {
-
-    },
     "Cancel" : {
 
     },
     "Category" : {
-
-    },
-    "Coffee" : {
 
     },
     "Dashboard" : {
@@ -40,19 +31,10 @@
     "Expense" : {
 
     },
-    "Expenses will sync when you are online" : {
-
-    },
-    "Food and drinks" : {
-
-    },
     "Home" : {
 
     },
     "Payment Method" : {
-
-    },
-    "Recent Expenses" : {
 
     },
     "repository.error.deleteFailed" : {
@@ -126,13 +108,7 @@
     "Save" : {
 
     },
-    "See All" : {
-
-    },
     "This Month" : {
-
-    },
-    "Today" : {
 
     },
     "Total Spent" : {

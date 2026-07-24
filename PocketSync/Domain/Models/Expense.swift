@@ -13,7 +13,13 @@ struct Expense: Identifiable, Equatable, Sendable {
     let currency: Currency
     let category: ExpenseCategory
     let note: String
-    let createAt: Date
+    let createdAt: Date
     let updatedAt: Date
     let syncStatus: SyncStatus
+    
+    var createdAtDisplayString: String {
+        DateFormatter.expenseRelativeFormatter.string(from: createdAt)
+    }
 }
+
+

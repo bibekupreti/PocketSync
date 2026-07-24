@@ -7,29 +7,27 @@
 
 import SwiftUI
 
-enum NetworkStatus: String {
-    case online = "Online"
-    case offline = "Offline"
-}
-
 struct NetworkStatusView: View {
+        
+    // MARK: - Properties
+    let networkStatus: NetworkStatus
     
-    var networkStatus: NetworkStatus
-    
+    // MARK: - Body
     var body: some View {
         HStack {
             Circle()
-                .foregroundStyle(AppColor.accent)
+                .foregroundStyle(networkStatus == .online ? AppColor.accent : AppColor.warning)
             Text(networkStatus.rawValue)
-                .captionStyle(fontWeight: .heavy)
-            Image(systemName: "cloud")
-                .foregroundStyle(AppColor.accent)
+                .bodyStyle()
+            Image(systemName: networkStatus == .online ? "cloud" : "network.slash")
+                .foregroundStyle(networkStatus == .online ? AppColor.accent : AppColor.warning)
         }
         .frame(height: 16)
         .padding(8)
         .background(AppColor.card)
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
+    
 }
 
 #Preview {

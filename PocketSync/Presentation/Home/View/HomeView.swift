@@ -14,8 +14,7 @@ struct HomeView: View {
     // MARK: - Properties
     @State
     private var viewModel: HomeViewModel
-    @AppStorage("hasSeenLocalDataTip") private var hasSeenLocalDataTip = false
-    private let expenses = PreviewData.expenses
+    @AppStorage("hasSeenHomeToolTip") private var hasSeenHomeToolTip = false
     
     // MARK: - Initialization
     init(viewModel: HomeViewModel) {
@@ -26,63 +25,57 @@ struct HomeView: View {
     var body: some View {
         VStack(alignment: .leading) {
             NetworkStatusView(networkStatus: .online)
-                .padding(.leading, 16)
-            TotalSpentCard(totalSpent: 12345.0)
-                .padding()
             
-            HStack {
-                Text("Recent Expenses")
-                    .bodyStyle(fontWeight: .semibold)
-                Spacer()
-                Button {
-                    print("See All tapped")
-                } label: {
-                    Text("See All")
-                        .bodyStyle(fontWeight: .semibold)
-                        .foregroundStyle(AppColor.accent)
-                }
-            }
-            .padding(.horizontal, 16)
+            TotalSpentCard(totalSpent: viewModel.totalExpense ?? "$ 0.00")
             
-            List {
-                ForEach(expenses) { item in
-                    ExpenseRow()
-                }
-                .listRowInsets(.init())
+            ListTitleView(
+                title: "Recent Expenses",
+                buttonTitle: "See All",
+                buttonTint: AppColor.accent,
+                hasButton: true
+            ) {
+                print("Button Tapped")
             }
-            .listStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .padding()
-
-            if !hasSeenLocalDataTip {
-                HStack(alignment: .top) {
-                    IconContainer(systemImage: "checkmark.icloud")
-                    VStack(alignment: .leading) {
-                        Text("All data is saved locally")
-                            .bodyStyle()
-                        Text("Expenses will sync when you are online")
-                            .captionStyle()
-                    }
-                    Spacer()
-                    Button {
-                        hasSeenLocalDataTip = true
-                    } label: {
-                        Image(systemName: "xmark")
-                            .foregroundStyle(AppColor.accent)
-                    }
+            
+            if viewModel.isEmpty {
+                ListEmptyState(
+                    systemImage: "tray",
+                    title: "No Expenses Yet",
+                    description: "Expenses you add will show up here.",
+                    buttonTitle: "Add Expense",
+                ) {
+                    print("Nothing")
                 }
-                .padding(16)
-                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+            } else {
+                List {
+                    ForEach(viewModel.expenses) { item in
+                        ExpenseRow(expense: item)
+                            .listRowSeparator(.hidden)
+                    }
+                    .listRowInsets(.init())
+                }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .scrollIndicators(.hidden)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(AppColor.card)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .padding(.horizontal)
-                
+                .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+                .padding(.vertical, 16)
             }
             
+            if !hasSeenHomeToolTip {
+                DismissibleTipView(
+                    systemName: "checkmark.icloud",
+                    title: "All data is saved locally",
+                    message: "Expenses will sync when you are online") {
+                        hasSeenHomeToolTip = true
+                    }
+            }
             
             Spacer()
         }
+        .padding(.horizontal, 16)
         .background(AppColor.background)
         .navigationTitle("Dashboard")
         .navigationBarTitleDisplayMode(.inline)
@@ -92,8 +85,9 @@ struct HomeView: View {
                     // Filter action
                     print("Filter tapped")
                 } label: {
-                    Image(systemName: "line.3.horizontal.decrease.circle")
-                        .font(.title3)
+                    Image(systemName: "plus")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(AppColor.accent)
                 }
             }
         }

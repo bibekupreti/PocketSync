@@ -25,9 +25,17 @@ extension Text {
             .lineLimit(lineLimit)
     }
     
+    func titleStyle(fontWeight: Font.Weight = .regular, lineLimit: Int = .max) -> some View {
+        self
+            .font(AppTypography.callout)
+            .foregroundStyle(.primary)
+            .fontWeight(fontWeight)
+            .lineLimit(lineLimit)
+    }
+    
     func bodyStyle(fontWeight: Font.Weight = .regular, lineLimit: Int = .max) -> some View {
         self
-            .font(AppTypography.body)
+            .font(AppTypography.subheadline)
             .foregroundStyle(.primary)
             .fontWeight(fontWeight)
             .lineLimit(lineLimit)
@@ -35,7 +43,7 @@ extension Text {
     
     func captionStyle(fontWeight: Font.Weight = .regular, lineLimit: Int = .max) -> some View {
         self
-            .font(AppTypography.caption)
+            .font(AppTypography.footNote)
             .foregroundStyle(.secondary)
             .fontWeight(fontWeight)
             .lineLimit(lineLimit)

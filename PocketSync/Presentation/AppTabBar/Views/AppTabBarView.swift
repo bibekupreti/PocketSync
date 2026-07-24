@@ -43,6 +43,7 @@ struct AppTabBarView: View {
                 }
             }
         }
+        .tint(AppColor.accent)
         
     }
 }

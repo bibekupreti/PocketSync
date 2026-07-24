@@ -16,12 +16,19 @@ final class HomeViewModel {
     private(set) var isLoading: Bool = false
     private(set) var error: RepositoryError?
     
+    private(set) var totalExpense: String?
+    
+    var isEmpty: Bool {
+        expenses.isEmpty ? true : false
+    }
+    
     // MARK: - Dependencies
     private let repository: ExpenseRepository
     
     // MARK: - Initialization
     init(repository: ExpenseRepository) {
         self.repository = repository
+//        self.expenses = PreviewData.expenses
     }
     
     // MARK: - Methods
@@ -41,6 +48,16 @@ final class HomeViewModel {
     // MARK: - Private
     private func fetchExpenses() async throws(RepositoryError) {
         expenses = try await repository.fetchExpenses()
+        calculateTotalExpense()
+    }
+    
+    private func calculateTotalExpense() {
+        var total: Decimal = 0
+        let currency: Currency = .usd
+        for expense in expenses {
+            total += expense.amount
+        }
+        totalExpense = "\(currency) \(total)"
     }
     
 }

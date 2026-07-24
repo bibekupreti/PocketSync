@@ -8,6 +8,6 @@
 import Foundation
 
 enum Currency: String, Codable, Sendable {
-    case usd
-    case npr
+    case usd = "$"
+    case npr = "Rs."
 }

@@ -13,4 +13,5 @@ enum AppColor {
     static let cardSecondary = Color(.tertiarySystemGroupedBackground)
     static let separator = Color(.separator)
     static let accent = Color("AccentGreen")
+    static let warning = Color(.red)
 }
