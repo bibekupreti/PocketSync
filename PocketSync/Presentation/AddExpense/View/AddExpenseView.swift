@@ -58,7 +58,7 @@ struct AddExpenseView: View {
     }
     
 }
-
+//working on the view
 #Preview {
     NavigationStack {
         AddExpenseView()
