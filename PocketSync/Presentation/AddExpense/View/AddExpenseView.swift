@@ -7,16 +7,21 @@
 
 import SwiftUI
 
-enum AddExpenseSegment: String, CaseIterable {
-    case expense = "Expense"
-    case income = "Income"
-}
-
 struct AddExpenseView: View {
     
     // MARK: - Properties
     @State private var selectedSegment: AddExpenseSegment = .expense
-    @State private var selectedAmount: String = "0.00"
+    @State private var formModel = ExpenseFormModel()
+    
+    @State private var alertMessage = ""
+    @State private var showAlert = false
+    
+    @State private var viewModel: AddExpenseViewModel
+    
+    // MARK: - Initialization
+    init(viewModel: AddExpenseViewModel) {
+        _viewModel = State(initialValue: viewModel)
+    }
     
     // MARK: - Body
     var body: some View {
@@ -30,12 +35,15 @@ struct AddExpenseView: View {
             HStack {
                 Text("$")
                     .screenTitleStyle()
-                Text(selectedAmount)
+                Text(verbatim: "\(formModel.amount)")
                     .screenTitleStyle()
             }
             .padding(32)
-            ExpenseFormView()
-                .padding()
+            ExpenseFormView(
+                formModel: $formModel,
+                expenseType: selectedSegment
+            )
+            .padding()
         }
         .background(AppColor.background)
         .navigationTitle("Add Expense")
@@ -48,19 +56,46 @@ struct AddExpenseView: View {
             }
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
+                    Task {
+                        await save()
+                    }
                     //                    save()
                     //                    dismiss()
                 }
-                // Disable until the form is actually valid, e.g.:
-                // .disabled(category == nil || amount == 0)
             }
+        }
+        .alert("Validation Error", isPresented: $showAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(alertMessage)
+        }
+    }
+    
+    // MARK: - Private Helpers
+    private func save() async {
+        if selectedSegment == .income {
+            formModel.category = .income
+        }
+        switch AddExpenseValidator.validate(formModel) {
+            
+        case .invalid(let message):
+            alertMessage = message
+            showAlert = true
+            
+        case .valid:
+            let expense = ExpenseFactory.make(
+                from: formModel,
+                type: selectedSegment
+            )
+            try? await viewModel.saveExpense(expense)
+            
         }
     }
     
 }
-//working on the view
+
 #Preview {
     NavigationStack {
-        AddExpenseView()
+        AddExpenseView(viewModel: MockViewModelFactory.makeAddExpenseViewModel())
     }
 }

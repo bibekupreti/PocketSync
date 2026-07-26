@@ -20,16 +20,13 @@ struct PocketSyncApp: App {
         } catch {
             fatalError("Failed to initialize dependency container \(error)")
         }
-        try? Tips.configure([
-            .displayFrequency(.immediate),
-            .datastoreLocation(.applicationDefault)
-        ])
     }
     
     var body: some Scene {
         WindowGroup {
             AppTabBarView(
-                viewModel: container.viewModelFactory.makeHomeViewModel()
+                homeViewModel: container.viewModelFactory.makeHomeViewModel(),
+                addExpenseViewModel: container.viewModelFactory.makeAddExpenseViewModel()
             )
         }
         //        .modelContainer(sharedModelContainer)

@@ -19,7 +19,6 @@ struct HomeView: View {
     // MARK: - Initialization
     init(viewModel: HomeViewModel) {
         _viewModel = State(initialValue: viewModel)
-        hasSeenHomeToolTip = false
     }
     
     // MARK: - Body
@@ -75,6 +74,9 @@ struct HomeView: View {
             }
             
             Spacer()
+        }
+        .task {
+            await viewModel.loadExpenses()
         }
         .padding(.horizontal, 16)
         .background(AppColor.background)

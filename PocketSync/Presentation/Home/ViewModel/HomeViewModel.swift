@@ -28,11 +28,10 @@ final class HomeViewModel {
     // MARK: - Initialization
     init(repository: ExpenseRepository) {
         self.repository = repository
-        self.expenses = PreviewData.expenses
     }
     
     // MARK: - Methods
-    func loadExpenses() async throws {
+    func loadExpenses() async {
         isLoading = true
         error = nil
         defer {
@@ -53,11 +52,14 @@ final class HomeViewModel {
     
     private func calculateTotalExpense() {
         var total: Decimal = 0
-        let currency: Currency = .usd
         for expense in expenses {
-            total += expense.amount
+            if expense.category == .income {
+                total -= expense.amount
+            } else {
+                total += expense.amount
+            }
         }
-        totalExpense = "\(currency) \(total)"
+        totalExpense = "$ \(total)"
     }
     
 }

@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct EnumPicker<T: CaseIterable & RawRepresentable & Hashable>: View where T.RawValue == String, T.AllCases: RandomAccessCollection {
+struct EnumPicker<T: RawRepresentable & Hashable>: View where T.RawValue == String {
     
     // MARK: - Properties
     @Binding var selection: T?
+    let options: [T]
     var placeholder: String = "Select an option"
     
     // MARK: - Body
@@ -18,7 +19,7 @@ struct EnumPicker<T: CaseIterable & RawRepresentable & Hashable>: View where T.R
         Picker(placeholder, selection: $selection) {
             Text(placeholder)
                 .tag(T?.none)
-            ForEach(T.allCases, id: \.self) { option in
+            ForEach(options, id: \.self) { option in
                 Text(option.rawValue)
                     .tag(T?.some(option))
             }

@@ -10,7 +10,6 @@ import Foundation
 struct Expense: Identifiable, Equatable, Sendable {
     let id: UUID
     let amount: Decimal
-    let currency: Currency
     let category: ExpenseCategory
     let paymentMethod: PaymentMethod
     let note: String

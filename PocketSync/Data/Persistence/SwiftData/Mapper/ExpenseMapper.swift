@@ -16,21 +16,17 @@ enum ExpenseMapper {
         return(
             ExpenseEntity(id: expense.id,
                           amount: expense.amount,
-                          currency: expense.currency.rawValue,
                           category: expense.category.rawValue,
                           paymentMethod: expense.paymentMethod.rawValue,
                           note: expense.note,
+                          createdAt: expense.createdAt,
+                          updatedAt: expense.updatedAt,
                           syncState: syncPersistenceValue.state,
                           syncErrorMessage: syncPersistenceValue.errorMessage)
         )
     }
     
     static func toDomain(from entity: ExpenseEntity) -> Expense {
-        
-        guard let currency = Currency(rawValue: entity.currency) else {
-            assertionFailure("Invalid currency: \(entity.currency)")
-            fatalError("Currency mapping failed")
-        }
         
         guard let category = ExpenseCategory(rawValue: entity.category) else {
             assertionFailure("Invalid category: \(entity.category)")
@@ -42,7 +38,6 @@ enum ExpenseMapper {
         return (
             Expense(id: entity.id,
                     amount: entity.amount,
-                    currency: currency,
                     category: category,
                     paymentMethod: PaymentMethod(rawValue: entity.paymentMethod) ?? PaymentMethod.cash,
                     note: entity.note,
@@ -56,7 +51,6 @@ enum ExpenseMapper {
         let syncPersistenceValue = SyncStatusMapper.toEntity(from: expense.syncStatus)
         
         entity.amount = expense.amount
-        entity.currency = expense.currency.rawValue
         entity.category = expense.category.rawValue
         entity.note = expense.note
         entity.updatedAt = expense.updatedAt

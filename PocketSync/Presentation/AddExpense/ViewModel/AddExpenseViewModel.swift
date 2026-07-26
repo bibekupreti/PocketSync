@@ -12,6 +12,10 @@ import Foundation
 final class AddExpenseViewModel {
     
     // MARK: - Properties
+    private(set) var isLoading: Bool = false
+    private(set) var error: RepositoryError?
+    
+    // MARK: - Dependencies
     private let repository: ExpenseRepository
     
     // MARK: - Init
@@ -20,5 +24,17 @@ final class AddExpenseViewModel {
     }
     
     // MARK: - Methods
+    func saveExpense(_ expense: Expense) async throws(RepositoryError) {
+        isLoading = true
+        error = nil
+        defer {
+            isLoading = false
+        }
+        do {
+            try await repository.addExpense(expense)
+        } catch let error {
+            self.error = error
+        }
+    }
     
 }

@@ -12,7 +12,6 @@ import Foundation
 final class ExpenseEntity {
     @Attribute(.unique) var id: UUID
     var amount: Decimal
-    var currency: String
     var category: String
     var paymentMethod: String
     var note: String
@@ -23,7 +22,6 @@ final class ExpenseEntity {
     
     init(id: UUID = UUID(),
          amount: Decimal,
-         currency: String,
          category: String,
          paymentMethod: String,
          note: String,
@@ -33,7 +31,6 @@ final class ExpenseEntity {
          syncErrorMessage: String?) {
         self.id = id
         self.amount = amount
-        self.currency = currency
         self.category = category
         self.paymentMethod = paymentMethod
         self.note = note

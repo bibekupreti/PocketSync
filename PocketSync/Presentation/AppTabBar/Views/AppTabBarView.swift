@@ -10,9 +10,10 @@ import SwiftData
 
 struct AppTabBarView: View {
     
-    let viewModel: HomeViewModel
+    let homeViewModel: HomeViewModel
+    let addExpenseViewModel: AddExpenseViewModel
     
-    @State private var selection: String = "contacts"
+    @State private var selection: String = "Home"
     @State private var searchText: String = ""
     
     var body: some View {
@@ -21,13 +22,13 @@ struct AppTabBarView: View {
             
             Tab("Home", systemImage: "house", value: "house") {
                 NavigationStack {
-                    HomeView(viewModel: viewModel)
+                    HomeView(viewModel: homeViewModel)
                 }
             }
             
             Tab("Expense", systemImage: "creditcard", value: "expense") {
                 NavigationStack {
-                    ExpenseView()
+                    AddExpenseView(viewModel: addExpenseViewModel)
                 }
             }
             

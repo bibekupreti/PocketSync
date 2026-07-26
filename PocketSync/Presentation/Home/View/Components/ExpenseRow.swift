@@ -9,8 +9,10 @@ import SwiftUI
 
 struct ExpenseRow: View {
     
+    // MARK: - Properties
     let expense: Expense
     
+    // MARK: - Body
     var body: some View {
         VStack {
             HStack(alignment: .center, spacing: 16) {
@@ -24,15 +26,16 @@ struct ExpenseRow: View {
                 }
                 Spacer()
                 VStack(alignment: .trailing, spacing: 4) {
-                    Text(verbatim: "\(expense.currency.rawValue) \(expense.amount)")
+                    Text(verbatim: "$ \(expense.amount)")
                         .bodyStyle(lineLimit: 1)
+                        .foregroundStyle(expense.category == .income ? AppColor.accent : .primary)
                     Text(expense.createdAtDisplayString)
                         .captionStyle(lineLimit: 1)
                 }
             }
             .padding(16)
             .background(AppColor.card)
-         Divider()
+            Divider()
                 .padding(.horizontal, 16)
         }
     }
@@ -44,7 +47,6 @@ struct ExpenseRow: View {
                 Expense(
                     id: UUID(),
                     amount: 4.05,
-                    currency: .usd,
                     category: .food,
                     paymentMethod: .cash,
                     note: "No latest note",

@@ -13,7 +13,6 @@ enum PreviewData {
         Expense(
             id: UUID(),
             amount: 100,
-            currency: .npr,
             category: .food,
             paymentMethod: .card,
             note: "On the Namaste cafe",
@@ -24,7 +23,6 @@ enum PreviewData {
         Expense(
             id: UUID(),
             amount: 10230,
-            currency: .usd,
             category: .shopping,
             paymentMethod: .cash,
             note: "Had to buy some socks",
@@ -35,7 +33,6 @@ enum PreviewData {
         Expense(
             id: UUID(),
             amount: 1000,
-            currency: .npr,
             category: .transport,
             paymentMethod: .card,
             note: "Bus bill",
@@ -46,7 +43,6 @@ enum PreviewData {
         Expense(
             id: UUID(),
             amount: 1230,
-            currency: .usd,
             category: .entertainment,
             paymentMethod: .card,
             note: "Netflix sibscription",
@@ -57,7 +53,6 @@ enum PreviewData {
         Expense(
             id: UUID(),
             amount: 800,
-            currency: .usd,
             category: .food,
             paymentMethod: .mobileWallet,
             note: "Pizza",
@@ -68,7 +63,6 @@ enum PreviewData {
         Expense(
             id: UUID(),
             amount: 800,
-            currency: .usd,
             category: .other,
             paymentMethod: .bankTransfer,
             note: "Some vedio games.",

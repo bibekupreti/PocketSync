@@ -28,6 +28,12 @@
     "Home" : {
 
     },
+    "Income" : {
+
+    },
+    "OK" : {
+
+    },
     "repository.error.deleteFailed" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -109,6 +115,9 @@
 
     },
     "Total Spent" : {
+
+    },
+    "Validation Error" : {
 
     },
     "Value" : {

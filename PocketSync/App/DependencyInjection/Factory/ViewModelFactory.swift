@@ -10,5 +10,6 @@ import Foundation
 protocol ViewModelFactory {
     
     func makeHomeViewModel() -> HomeViewModel
+    func makeAddExpenseViewModel() -> AddExpenseViewModel
     
 }
