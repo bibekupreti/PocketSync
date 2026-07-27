@@ -93,7 +93,7 @@ struct AddExpenseView: View {
     }
     
 }
-
+// WORKING ON THE SYNC VIEW
 #Preview {
     NavigationStack {
         AddExpenseView(viewModel: MockViewModelFactory.makeAddExpenseViewModel())
