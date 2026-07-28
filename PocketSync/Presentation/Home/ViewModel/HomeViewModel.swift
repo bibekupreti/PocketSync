@@ -46,27 +46,27 @@ final class HomeViewModel {
     
     // MARK: - Private
     private func fetchExpenses() async throws(RepositoryError) {
-        expenses = try await repository.fetchExpenses()
+        let expenses = try await repository.fetchExpenses()
+        self.expenses = currentMonthExpenses(expenses: expenses)
         calculateMonthlySummary()
     }
     
     private func calculateMonthlySummary() {
-        let monthlyTransactions = currentMonthExpenses()
-
-        guard !monthlyTransactions.isEmpty else {
+        
+        guard !expenses.isEmpty else {
             monthlySummary = .empty
             return
         }
 
-        let income = monthlyIncome(from: monthlyTransactions)
-        let expense = monthlyExpenses(from: monthlyTransactions)
+        let income = monthlyIncome(from: expenses)
+        let expense = monthlyExpenses(from: expenses)
         let balance = income - expense
 
         monthlySummary = MonthlySummary(
             balance: abs(balance),
             income: income,
             expense: expense,
-            transactionCount: monthlyTransactions.count,
+            transactionCount: expenses.count,
             title: balance >= 0 ? "Net Savings" : "Net Spending",
             message: makeInsight(
                 income: income,
@@ -98,7 +98,7 @@ final class HomeViewModel {
         return "You've spent more than you earned this month."
     }
     
-    private func currentMonthExpenses() -> [Expense] {
+    private func currentMonthExpenses(expenses: [Expense]) -> [Expense] {
         let calendar = Calendar.current
         let now = Date()
 

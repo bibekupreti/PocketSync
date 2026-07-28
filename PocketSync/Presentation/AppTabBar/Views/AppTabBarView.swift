@@ -23,13 +23,13 @@ struct AppTabBarView: View {
             
             Tab("Home", systemImage: "house", value: "house") {
                 NavigationStack {
-                    HomeView(viewModel: homeViewModel)
+                    HomeView(viewModel: homeViewModel, addExpenseViewModel: addExpenseViewModel)
                 }
             }
             
             Tab("Expense", systemImage: "creditcard", value: "expense") {
                 NavigationStack {
-                    ExpenseListView(viewModel: expenseListViewModel)
+                    ExpenseListView(viewModel: expenseListViewModel, addExpenseViewModel: addExpenseViewModel)
                 }
             }
             

@@ -16,9 +16,13 @@ struct HomeView: View {
     private var viewModel: HomeViewModel
     @AppStorage("hasSeenHomeToolTip") private var hasSeenHomeToolTip = false
     
+    var addExpenseViewModel: AddExpenseViewModel
+    @State private var isShowingAddExpense = false
+    
     // MARK: - Initialization
-    init(viewModel: HomeViewModel) {
+    init(viewModel: HomeViewModel, addExpenseViewModel: AddExpenseViewModel) {
         _viewModel = State(initialValue: viewModel)
+        self.addExpenseViewModel = addExpenseViewModel
     }
     
     // MARK: - Body
@@ -45,7 +49,7 @@ struct HomeView: View {
                     description: "Expenses you add will show up here.",
                     buttonTitle: "Add Expense",
                 ) {
-                    print("Nothing")
+                   isShowingAddExpense = true
                 }
                 .padding(.vertical, 8)
             } else {
@@ -84,11 +88,19 @@ struct HomeView: View {
         .background(AppColor.background)
         .navigationTitle("Dashboard")
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $isShowingAddExpense) {
+            NavigationStack {
+                AddExpenseView(
+                    viewModel: addExpenseViewModel
+                )
+            }
+            .presentationDetents([.large])
+            .presentationDragIndicator(.visible)
+        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    // Filter action
-                    print("Filter tapped")
+                    isShowingAddExpense = true
                 } label: {
                     Image(systemName: "plus")
                         .font(.system(size: 16, weight: .semibold))
@@ -104,7 +116,7 @@ struct HomeView: View {
 
 #Preview {
     NavigationStack {
-        HomeView(viewModel: MockViewModelFactory.makeHomeViewModel())
+        HomeView(viewModel: MockViewModelFactory.makeHomeViewModel(), addExpenseViewModel: MockViewModelFactory.makeAddExpenseViewModel())
     }
 }
 

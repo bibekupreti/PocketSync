@@ -10,6 +10,7 @@ import SwiftUI
 struct AddExpenseView: View {
     
     // MARK: - Properties
+    @Environment(\.dismiss) private var dismiss
     @State private var selectedSegment: AddExpenseSegment = .expense
     @State private var formModel = ExpenseFormModel()
     
@@ -51,7 +52,7 @@ struct AddExpenseView: View {
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
                 Button("Cancel") {
-                    //                    dismiss()
+                    dismiss()
                 }
             }
             ToolbarItem(placement: .confirmationAction) {
@@ -59,8 +60,6 @@ struct AddExpenseView: View {
                     Task {
                         await save()
                     }
-                    //                    save()
-                    //                    dismiss()
                 }
             }
         }
@@ -88,6 +87,7 @@ struct AddExpenseView: View {
                 type: selectedSegment
             )
             try? await viewModel.saveExpense(expense)
+            dismiss()
             
         }
     }
