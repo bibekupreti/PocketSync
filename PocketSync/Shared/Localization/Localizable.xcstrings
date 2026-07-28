@@ -25,6 +25,9 @@
     "Expense" : {
 
     },
+    "Expense List" : {
+
+    },
     "Home" : {
 
     },
@@ -105,7 +108,13 @@
     "Save" : {
 
     },
+    "Search by category" : {
+
+    },
     "Select Date" : {
+
+    },
+    "Sync Now" : {
 
     },
     "Sync Status" : {
@@ -114,16 +123,16 @@
     "This Month" : {
 
     },
-    "Total Spent" : {
-
-    },
     "Validation Error" : {
 
     },
     "Value" : {
 
     },
-    "Welcome to home" : {
+    "You're Offline" : {
+
+    },
+    "Your expenses are saved locally\nand will sync when you're online." : {
 
     }
   },

@@ -13,6 +13,11 @@ enum MockViewModelFactory {
             repository: MockExpenseRepository()
         )
     }
+    static func makeExpenseListViewModel() -> ExpenseListViewModel {
+        ExpenseListViewModel(
+            repository: MockExpenseRepository()
+        )
+    }
     static func makeAddExpenseViewModel() -> AddExpenseViewModel {
         AddExpenseViewModel(
             repository: MockExpenseRepository()

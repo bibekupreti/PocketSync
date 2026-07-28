@@ -26,7 +26,7 @@ struct HomeView: View {
         VStack(alignment: .leading) {
             NetworkStatusView(networkStatus: .online)
             
-            TotalSpentCard(totalSpent: viewModel.totalExpense ?? "$ 0.00")
+            MonthlySummaryCard(summary: viewModel.monthlySummary)
             
             ListTitleView(
                 title: "Recent Expenses",
@@ -36,6 +36,7 @@ struct HomeView: View {
             ) {
                 print("Button Tapped")
             }
+            .padding(.top, 8)
             
             if viewModel.isEmpty {
                 ListEmptyState(
@@ -46,14 +47,15 @@ struct HomeView: View {
                 ) {
                     print("Nothing")
                 }
-                .padding(.vertical, 16)
+                .padding(.vertical, 8)
             } else {
                 List {
                     ForEach(viewModel.expenses) { item in
                         ExpenseRow(expense: item)
                             .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
                     }
-                    .listRowInsets(.init())
+                    .listRowInsets(EdgeInsets())
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
@@ -61,7 +63,7 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(AppColor.card)
                 .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
-                .padding(.vertical, 16)
+                .padding(.vertical, 8)
             }
             
             if !hasSeenHomeToolTip {

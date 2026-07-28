@@ -26,7 +26,8 @@ struct PocketSyncApp: App {
         WindowGroup {
             AppTabBarView(
                 homeViewModel: container.viewModelFactory.makeHomeViewModel(),
-                addExpenseViewModel: container.viewModelFactory.makeAddExpenseViewModel()
+                addExpenseViewModel: container.viewModelFactory.makeAddExpenseViewModel(),
+                expenseListViewModel: container.viewModelFactory.makeExpenseListViewModel()
             )
         }
         //        .modelContainer(sharedModelContainer)

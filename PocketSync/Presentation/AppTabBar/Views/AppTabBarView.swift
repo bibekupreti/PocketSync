@@ -12,6 +12,7 @@ struct AppTabBarView: View {
     
     let homeViewModel: HomeViewModel
     let addExpenseViewModel: AddExpenseViewModel
+    let expenseListViewModel: ExpenseListViewModel
     
     @State private var selection: String = "Home"
     @State private var searchText: String = ""
@@ -28,31 +29,21 @@ struct AppTabBarView: View {
             
             Tab("Expense", systemImage: "creditcard", value: "expense") {
                 NavigationStack {
-                    AddExpenseView(viewModel: addExpenseViewModel)
+                    ExpenseListView(viewModel: expenseListViewModel)
                 }
             }
             
             Tab("Sync Status", systemImage: "cloud", value: "status") {
                 NavigationStack {
-                    SyncStatusView()
+                    OfflineSyncView(pendingCount: 4, failedCount: 3, lastSync: Date.now) {
+                        print("synced tapped")
+                    }
                 }
             }
             
         }
         .tint(AppColor.accent)
         
-    }
-}
-
-struct ExpenseView: View {
-    var body: some View {
-        Text("Welcome to home")
-    }
-}
-
-struct SyncStatusView: View {
-    var body: some View {
-        Text("Welcome to home")
     }
 }
 

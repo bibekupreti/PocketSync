@@ -32,7 +32,11 @@ final class SwiftDataExpenseRepository: ExpenseRepository {
     }
     
     func fetchExpenses() async throws(RepositoryError) -> [Expense] {
-        let descriptor = FetchDescriptor<ExpenseEntity>()
+        let descriptor = FetchDescriptor<ExpenseEntity>(
+            sortBy: [
+                SortDescriptor(\.createdAt, order: .reverse)
+            ]
+        )
         let entities: [ExpenseEntity]
         do {
             entities = try modelContext.fetch(descriptor)

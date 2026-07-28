@@ -22,6 +22,10 @@ final class DefaultViewModelFactory: ViewModelFactory {
         HomeViewModel(repository: container.expenseRepository)
     }
     
+    func makeExpenseListViewModel() -> ExpenseListViewModel {
+        ExpenseListViewModel(repository: container.expenseRepository)
+    }
+    
     func makeAddExpenseViewModel() -> AddExpenseViewModel {
         AddExpenseViewModel(repository: container.expenseRepository)
     }
