@@ -13,5 +13,6 @@ protocol ViewModelFactory {
     func makeExpenseListViewModel() -> ExpenseListViewModel
     func makeAddExpenseViewModel() -> AddExpenseViewModel
     func makeExpenseDetailViewModel() -> ExpenseDetailViewModel
+    func makeSyncStatusViewModel() -> SyncStatusViewModel
     
 }

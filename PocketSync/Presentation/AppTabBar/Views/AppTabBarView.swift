@@ -14,6 +14,7 @@ struct AppTabBarView: View {
     let addExpenseViewModel: AddExpenseViewModel
     let expenseListViewModel: ExpenseListViewModel
     let expenseDetailViewModel: ExpenseDetailViewModel
+    let syncStatusViewModel: SyncStatusViewModel
     
     @State private var selection: String = "Home"
     @State private var searchText: String = ""
@@ -46,9 +47,7 @@ struct AppTabBarView: View {
             
             Tab("Sync Status", systemImage: "cloud", value: "status") {
                 NavigationStack {
-                    OfflineSyncView(pendingCount: 4, failedCount: 3, lastSync: Date.now) {
-                        print("synced tapped")
-                    }
+                    OfflineSyncView(viewModel: syncStatusViewModel)
                 }
             }
             

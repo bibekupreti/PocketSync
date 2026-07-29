@@ -31,7 +31,8 @@ struct PocketSyncApp: App {
                 homeViewModel: container.viewModelFactory.makeHomeViewModel(),
                 addExpenseViewModel: container.viewModelFactory.makeAddExpenseViewModel(),
                 expenseListViewModel: container.viewModelFactory.makeExpenseListViewModel(),
-                expenseDetailViewModel: container.viewModelFactory.makeExpenseDetailViewModel()
+                expenseDetailViewModel: container.viewModelFactory.makeExpenseDetailViewModel(),
+                syncStatusViewModel: container.viewModelFactory.makeSyncStatusViewModel()
             )
         }
     }

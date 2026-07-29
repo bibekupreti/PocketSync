@@ -34,4 +34,8 @@ final class DefaultViewModelFactory: ViewModelFactory {
         ExpenseDetailViewModel(repository: container.expenseRepository)
     }
     
+    func makeSyncStatusViewModel() -> SyncStatusViewModel {
+        SyncStatusViewModel(repository: container.expenseRepository)
+    }
+    
 }
