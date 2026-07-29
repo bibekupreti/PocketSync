@@ -19,10 +19,28 @@
     "Day" : {
 
     },
+    "Delete" : {
+
+    },
+    "Delete Expense" : {
+
+    },
+    "Delete Expense?" : {
+
+    },
     "Done" : {
 
     },
+    "Edit" : {
+
+    },
+    "Edit Expense" : {
+
+    },
     "Expense" : {
+
+    },
+    "Expense Detail" : {
 
     },
     "Expense List" : {
@@ -111,10 +129,16 @@
     "Select Date" : {
 
     },
+    "Something went wrong" : {
+
+    },
     "Sync Now" : {
 
     },
     "Sync Status" : {
+
+    },
+    "This action cannot be undone." : {
 
     },
     "This Month" : {

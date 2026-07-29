@@ -11,17 +11,37 @@ struct AddExpenseView: View {
     
     // MARK: - Properties
     @Environment(\.dismiss) private var dismiss
-    @State private var selectedSegment: AddExpenseSegment = .expense
-    @State private var formModel = ExpenseFormModel()
+    @State private var selectedSegment: AddExpenseSegment
+    @State private var formModel: ExpenseFormModel
     
     @State private var alertMessage = ""
     @State private var showAlert = false
     
     @State private var viewModel: AddExpenseViewModel
     
+    private let expenseToEdit: Expense?
+    private let onSave: ((Expense) -> Void)?
+    private var isEditing: Bool {
+        expenseToEdit != nil
+    }
+    
     // MARK: - Initialization
-    init(viewModel: AddExpenseViewModel) {
+    init(
+        viewModel: AddExpenseViewModel,
+        expenseToEdit: Expense? = nil,
+        onSave: ((Expense) -> Void)? = nil
+    ) {
         _viewModel = State(initialValue: viewModel)
+        self.expenseToEdit = expenseToEdit
+        self.onSave = onSave
+        
+        if let expenseToEdit {
+            _formModel = State(initialValue: ExpenseFormModel(from: expenseToEdit))
+            _selectedSegment = State(initialValue: expenseToEdit.category == .income ? .income : .expense)
+        } else {
+            _formModel = State(initialValue: ExpenseFormModel())
+            _selectedSegment = State(initialValue: .expense)
+        }
     }
     
     // MARK: - Body
@@ -33,6 +53,9 @@ struct AddExpenseView: View {
                 label: { $0.rawValue }
             )
             .padding()
+            .disabled(isEditing)
+            .opacity(isEditing ? 0.5 : 1)
+            
             HStack {
                 Text("$")
                     .screenTitleStyle()
@@ -47,7 +70,7 @@ struct AddExpenseView: View {
             .padding()
         }
         .background(AppColor.background)
-        .navigationTitle("Add Expense")
+        .navigationTitle(expenseToEdit == nil ? "Add Expense" : "Edit Expense")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
@@ -82,18 +105,34 @@ struct AddExpenseView: View {
             showAlert = true
             
         case .valid:
-            let expense = ExpenseFactory.make(
-                from: formModel,
-                type: selectedSegment
-            )
-            try? await viewModel.saveExpense(expense)
-            dismiss()
-            
+            do {
+                if let expenseToEdit {
+                    let updated = ExpenseFactory.make(
+                        from: formModel,
+                        type: selectedSegment,
+                        id: expenseToEdit.id,
+                        createdAt: expenseToEdit.createdAt
+                    )
+                    try await viewModel.updateExpense(updated)
+                    onSave?(updated)
+                } else {
+                    let expense = ExpenseFactory.make(
+                        from: formModel,
+                        type: selectedSegment
+                    )
+                    try await viewModel.saveExpense(expense)
+                    onSave?(expense)
+                }
+                dismiss()
+            } catch {
+                alertMessage = "Couldn't save expense. Please try again."
+                showAlert = true
+            }
         }
     }
     
 }
-// WORKING ON THE SYNC VIEW
+
 #Preview {
     NavigationStack {
         AddExpenseView(viewModel: MockViewModelFactory.makeAddExpenseViewModel())

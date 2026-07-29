@@ -14,3 +14,14 @@ struct ExpenseFormModel {
     var date: Date = .now
     var note: String = ""
 }
+
+extension ExpenseFormModel {
+    init(from expense: Expense) {
+        self.init()
+        self.category = expense.category
+        self.paymentMethod = expense.paymentMethod
+        self.amount = expense.amount
+        self.date = expense.createdAt
+        self.note = expense.note
+    }
+}

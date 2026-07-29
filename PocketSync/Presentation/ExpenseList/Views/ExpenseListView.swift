@@ -15,9 +15,11 @@ struct ExpenseListView: View {
     var addExpenseViewModel: AddExpenseViewModel
     @State private var isShowingAddExpense = false
     
+    @Environment(ExpenseRouter.self) private var router
+    
     // MARK: - Initialization
     init(viewModel: ExpenseListViewModel, addExpenseViewModel: AddExpenseViewModel) {
-        _viewModel = State(wrappedValue: viewModel)
+        _viewModel = State(initialValue: viewModel)
         self.addExpenseViewModel = addExpenseViewModel
     }
     
@@ -31,7 +33,7 @@ struct ExpenseListView: View {
                     description: "Expenses you add will show up here.",
                     buttonTitle: "Add Expense",
                 ) {
-                   isShowingAddExpense = true
+                    isShowingAddExpense = true
                 }
                 .padding(.vertical, 8)
             } else {
@@ -41,6 +43,10 @@ struct ExpenseListView: View {
                         Section {
                             ForEach(section.expenses) { expense in
                                 ExpenseRow(expense: expense)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        router.push(expense)
+                                    }
                                     .listRowSeparator(.hidden)
                                     .listRowBackground(Color.clear)
                             }

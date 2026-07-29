@@ -12,5 +12,6 @@ protocol ViewModelFactory {
     func makeHomeViewModel() -> HomeViewModel
     func makeExpenseListViewModel() -> ExpenseListViewModel
     func makeAddExpenseViewModel() -> AddExpenseViewModel
+    func makeExpenseDetailViewModel() -> ExpenseDetailViewModel
     
 }

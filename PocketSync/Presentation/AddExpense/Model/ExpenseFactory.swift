@@ -24,3 +24,23 @@ enum ExpenseFactory {
     }
 
 }
+
+extension ExpenseFactory {
+    static func make(
+        from formModel: ExpenseFormModel,
+        type: AddExpenseSegment,
+        id: UUID,
+        createdAt: Date
+    ) -> Expense {
+        Expense(
+            id: id,
+            amount: formModel.amount,
+            category: formModel.category ?? .other,
+            paymentMethod: formModel.paymentMethod ?? .cash,
+            note: formModel.note,
+            createdAt: createdAt,
+            updatedAt: .now,
+            syncStatus: .pending
+        )
+    }
+}

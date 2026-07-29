@@ -19,6 +19,8 @@ struct HomeView: View {
     var addExpenseViewModel: AddExpenseViewModel
     @State private var isShowingAddExpense = false
     
+    @Environment(ExpenseRouter.self) private var router
+    
     // MARK: - Initialization
     init(viewModel: HomeViewModel, addExpenseViewModel: AddExpenseViewModel) {
         _viewModel = State(initialValue: viewModel)
@@ -49,13 +51,16 @@ struct HomeView: View {
                     description: "Expenses you add will show up here.",
                     buttonTitle: "Add Expense",
                 ) {
-                   isShowingAddExpense = true
+                    isShowingAddExpense = true
                 }
                 .padding(.vertical, 8)
             } else {
                 List {
                     ForEach(viewModel.expenses) { item in
                         ExpenseRow(expense: item)
+                            .onTapGesture {
+                                router.push(item)
+                            }
                             .listRowSeparator(.hidden)
                             .listRowBackground(Color.clear)
                     }

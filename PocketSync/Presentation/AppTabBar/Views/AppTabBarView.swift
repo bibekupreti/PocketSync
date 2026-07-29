@@ -13,24 +13,35 @@ struct AppTabBarView: View {
     let homeViewModel: HomeViewModel
     let addExpenseViewModel: AddExpenseViewModel
     let expenseListViewModel: ExpenseListViewModel
+    let expenseDetailViewModel: ExpenseDetailViewModel
     
     @State private var selection: String = "Home"
     @State private var searchText: String = ""
+    
+    @State private var expenseRouter = ExpenseRouter()
     
     var body: some View {
         
         TabView(selection: $selection) {
             
             Tab("Home", systemImage: "house", value: "house") {
-                NavigationStack {
+                NavigationStack(path: $expenseRouter.path) {
                     HomeView(viewModel: homeViewModel, addExpenseViewModel: addExpenseViewModel)
+                        .navigationDestination(for: Expense.self) { expense in
+                            ExpenseDetailView(expense: expense, viewModel: expenseDetailViewModel, addExpenseViewModel: addExpenseViewModel)
+                        }
                 }
+                .environment(expenseRouter)
             }
             
             Tab("Expense", systemImage: "creditcard", value: "expense") {
-                NavigationStack {
+                NavigationStack(path: $expenseRouter.path) {
                     ExpenseListView(viewModel: expenseListViewModel, addExpenseViewModel: addExpenseViewModel)
+                        .navigationDestination(for: Expense.self) { expense in
+                            ExpenseDetailView(expense: expense, viewModel: expenseDetailViewModel, addExpenseViewModel: addExpenseViewModel)
+                        }
                 }
+                .environment(expenseRouter)
             }
             
             Tab("Sync Status", systemImage: "cloud", value: "status") {

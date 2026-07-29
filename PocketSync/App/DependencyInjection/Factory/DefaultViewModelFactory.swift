@@ -30,4 +30,8 @@ final class DefaultViewModelFactory: ViewModelFactory {
         AddExpenseViewModel(repository: container.expenseRepository)
     }
     
+    func makeExpenseDetailViewModel() -> ExpenseDetailViewModel {
+        ExpenseDetailViewModel(repository: container.expenseRepository)
+    }
+    
 }

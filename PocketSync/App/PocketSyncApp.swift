@@ -12,8 +12,10 @@ import TipKit
 @main
 struct PocketSyncApp: App {
     
+    // MARK: - Properties
     private let container: DependencyContainer
     
+    // MARK: - Initialization
     init() {
         do {
             container = try DependencyContainer()
@@ -22,14 +24,16 @@ struct PocketSyncApp: App {
         }
     }
     
+    // MARK: - Body
     var body: some Scene {
         WindowGroup {
             AppTabBarView(
                 homeViewModel: container.viewModelFactory.makeHomeViewModel(),
                 addExpenseViewModel: container.viewModelFactory.makeAddExpenseViewModel(),
-                expenseListViewModel: container.viewModelFactory.makeExpenseListViewModel()
+                expenseListViewModel: container.viewModelFactory.makeExpenseListViewModel(),
+                expenseDetailViewModel: container.viewModelFactory.makeExpenseDetailViewModel()
             )
         }
-        //        .modelContainer(sharedModelContainer)
     }
+    
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SyncStatus: Equatable {
+enum SyncStatus: Equatable, Hashable {
     case pending
     case syncing
     case synced

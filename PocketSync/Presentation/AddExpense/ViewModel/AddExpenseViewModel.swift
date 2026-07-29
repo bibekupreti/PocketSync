@@ -37,4 +37,17 @@ final class AddExpenseViewModel {
         }
     }
     
+    func updateExpense(_ expense: Expense) async throws(RepositoryError) {
+        isLoading = true
+        error = nil
+        defer {
+            isLoading = false
+        }
+        do {
+            try await repository.updateExpense(expense)
+        } catch let error {
+            self.error = error
+        }
+    }
+    
 }
