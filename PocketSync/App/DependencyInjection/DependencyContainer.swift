@@ -14,11 +14,6 @@ final class DependencyContainer {
     let modelContainer: ModelContainer
     let modelContext: ModelContext
     
-    // MARK: - Repositories
-    lazy var expenseRepository: ExpenseRepository = {
-        SwiftDataExpenseRepository(modelContext: modelContext)
-    }()
-    
     // MARK: - Initialization
     init() throws {
         modelContainer = try ModelContainer(
@@ -26,6 +21,11 @@ final class DependencyContainer {
         )
         modelContext = modelContainer.mainContext
     }
+    
+    // MARK: - Repositories
+    lazy var expenseRepository: ExpenseRepository = {
+        SwiftDataExpenseRepository(modelContext: modelContext)
+    }()
     
     // MARK: - Factories
     lazy var viewModelFactory: ViewModelFactory = {
