@@ -47,7 +47,7 @@ struct AppTabBarView: View {
             
             Tab("Sync Status", systemImage: "cloud", value: "status") {
                 NavigationStack {
-                    OfflineSyncView(viewModel: syncStatusViewModel)
+                    SyncStatusView(viewModel: syncStatusViewModel)
                 }
             }
             

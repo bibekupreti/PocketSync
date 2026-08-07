@@ -10,6 +10,9 @@
     "AmountTextField" : {
 
     },
+    "Automatic Sync" : {
+
+    },
     "Cancel" : {
 
     },
@@ -53,6 +56,9 @@
 
     },
     "OK" : {
+
+    },
+    "PocketSync automatically syncs your expenses whenever an internet connection becomes available.\n\nYou never need to manually start synchronization." : {
 
     },
     "repository.error.deleteFailed" : {
@@ -132,7 +138,7 @@
     "Something went wrong" : {
 
     },
-    "Sync Now" : {
+    "Sync" : {
 
     },
     "Sync Status" : {
@@ -148,12 +154,6 @@
 
     },
     "Value" : {
-
-    },
-    "You're Offline" : {
-
-    },
-    "Your expenses are saved locally\nand will sync when you're online." : {
 
     }
   },

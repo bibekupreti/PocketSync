@@ -14,6 +14,31 @@ final class DependencyContainer {
     let modelContainer: ModelContainer
     let modelContext: ModelContext
     
+    // MARK: - Properties
+    lazy var expenseRepository: ExpenseRepository = {
+        SwiftDataExpenseRepository(modelContext: modelContext)
+    }()
+    
+    lazy var viewModelFactory: ViewModelFactory = {
+        DefaultViewModelFactory(container: self)
+    }()
+    
+    lazy var networkMonitor: NetworkMonitoring = {
+        NetworkMonitor()
+    }()
+    
+    lazy var remoteExpenseRepository: RemoteExpenseRepository = {
+        FakeRemoteExpenseRepository()
+    }()
+    
+    lazy var syncService: SyncService = {
+        DefaultSyncService(
+            repository: expenseRepository,
+            remoteRepository: remoteExpenseRepository,
+            networkMonitor: networkMonitor
+        )
+    }()
+    
     // MARK: - Initialization
     init() throws {
         modelContainer = try ModelContainer(
@@ -21,15 +46,5 @@ final class DependencyContainer {
         )
         modelContext = modelContainer.mainContext
     }
-    
-    // MARK: - Repositories
-    lazy var expenseRepository: ExpenseRepository = {
-        SwiftDataExpenseRepository(modelContext: modelContext)
-    }()
-    
-    // MARK: - Factories
-    lazy var viewModelFactory: ViewModelFactory = {
-        DefaultViewModelFactory(container: self)
-    }()
     
 }

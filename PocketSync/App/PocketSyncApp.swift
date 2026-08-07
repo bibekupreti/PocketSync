@@ -19,6 +19,8 @@ struct PocketSyncApp: App {
     init() {
         do {
             container = try DependencyContainer()
+            container.networkMonitor.startMonitoring()
+            container.syncService.start()
         } catch {
             fatalError("Failed to initialize dependency container \(error)")
         }

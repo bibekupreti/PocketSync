@@ -6,49 +6,77 @@
 //
 
 import Foundation
+import Observation
 
-@MainActor
 @Observable
+@MainActor
 final class SyncStatusViewModel {
     
-    // MARK: - Properties
-    private let repository: ExpenseRepository
+    // MARK: - State
     
-    private(set) var pendingCount: Int = 0
-    private(set) var failedCount: Int = 0
+    private(set) var isConnected = false
+    private(set) var isSyncing = false
+    
+    private(set) var pendingCount = 0
+    private(set) var failedCount = 0
+    
     private(set) var lastSync: Date?
-    private(set) var isLoading: Bool = false
-    private(set) var error: RepositoryError?
+    
+    // MARK: - Dependencies
+    
+    private let repository: ExpenseRepository
+    private let networkMonitor: NetworkMonitoring
     
     // MARK: - Initialization
-    init(repository: ExpenseRepository) {
+    
+    init(
+        repository: ExpenseRepository,
+        networkMonitor: NetworkMonitoring
+    ) {
         self.repository = repository
+        self.networkMonitor = networkMonitor
     }
     
-    // MARK: - Methods
+    // MARK: - Public
+    
     func loadSyncStatus() async {
-        isLoading = true
-        error = nil
-        defer { isLoading = false }
+        
+        isConnected = networkMonitor.isConnected
         
         do {
+            
             let expenses = try await repository.fetchExpenses()
-            pendingCount = expenses.filter { $0.syncStatus == .pending }.count
-            failedCount = expenses.filter {
-                if case .failed = $0.syncStatus { return true }
+            
+            pendingCount = expenses.filter {
+                if case .pending = $0.syncStatus {
+                    return true
+                }
                 return false
             }.count
-            lastSync = expenses
-                .filter { $0.syncStatus == .synced }
-                .map(\.updatedAt)
-                .max()
-        } catch let error {
-            self.error = error
+            
+            failedCount = expenses.filter {
+                if case .failed = $0.syncStatus {
+                    return true
+                }
+                return false
+            }.count
+            
+        } catch {
+            print(error)
         }
+        
+        observeNetwork()
     }
     
-    func sync() async {
-        await loadSyncStatus()
+    // MARK: - Private
+    private func observeNetwork() {
+        Task {
+            for await connected in networkMonitor.statusUpdates {
+                await MainActor.run {
+                    self.isConnected = connected
+                }
+            }
+        }
     }
     
 }

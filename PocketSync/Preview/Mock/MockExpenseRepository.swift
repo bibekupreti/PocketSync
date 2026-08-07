@@ -8,6 +8,18 @@
 import Foundation
 
 final class MockExpenseRepository: ExpenseRepository {
+    func fetchPendingExpenses() async throws(RepositoryError) -> [Expense] {
+        return []
+    }
+    
+    func markAsSynced(id: UUID) async throws(RepositoryError) {
+        //
+    }
+    
+    func markAsFailed(id: UUID, errorMessage: String?) async throws(RepositoryError) {
+        //
+    }
+    
     
     private var expenses: [Expense] = PreviewData.expenses
     
