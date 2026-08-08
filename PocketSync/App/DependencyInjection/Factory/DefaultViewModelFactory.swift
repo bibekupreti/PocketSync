@@ -36,7 +36,8 @@ final class DefaultViewModelFactory: ViewModelFactory {
     
     func makeSyncStatusViewModel() -> SyncStatusViewModel {
         SyncStatusViewModel(repository: container.expenseRepository,
-                            networkMonitor: container.networkMonitor)
+                            networkMonitor: container.networkMonitor,
+                            syncMetadataRepository: container.syncMetadataRepository)
     }
     
 }

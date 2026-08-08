@@ -19,6 +19,12 @@ final class DependencyContainer {
         SwiftDataExpenseRepository(modelContext: modelContext)
     }()
     
+    lazy var syncMetadataRepository: SyncMetadataRepository = {
+        SwiftDataSyncMetadataRepository(
+            modelContext: modelContext
+        )
+    }()
+    
     lazy var viewModelFactory: ViewModelFactory = {
         DefaultViewModelFactory(container: self)
     }()
@@ -35,6 +41,7 @@ final class DependencyContainer {
         DefaultSyncService(
             repository: expenseRepository,
             remoteRepository: remoteExpenseRepository,
+            syncMetadataRepository: syncMetadataRepository,
             networkMonitor: networkMonitor
         )
     }()
@@ -42,7 +49,9 @@ final class DependencyContainer {
     // MARK: - Initialization
     init() throws {
         modelContainer = try ModelContainer(
-            for: ExpenseEntity.self
+            for:
+                ExpenseEntity.self,
+                SyncMetadataEntity.self
         )
         modelContext = modelContainer.mainContext
     }

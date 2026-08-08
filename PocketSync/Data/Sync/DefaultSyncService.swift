@@ -14,6 +14,8 @@ final class DefaultSyncService: SyncService {
     private let remoteRepository: RemoteExpenseRepository
     private let networkMonitor: NetworkMonitoring
     
+    private let syncMetadataRepository: SyncMetadataRepository
+    
     // MARK: - Tasks
     private var monitoringTask: Task<Void, Never>?
     private var isSyncing = false
@@ -22,11 +24,13 @@ final class DefaultSyncService: SyncService {
     init(
         repository: ExpenseRepository,
         remoteRepository: RemoteExpenseRepository,
+        syncMetadataRepository: SyncMetadataRepository,
         networkMonitor: NetworkMonitoring
     ) {
         self.repository = repository
         self.remoteRepository = remoteRepository
         self.networkMonitor = networkMonitor
+        self.syncMetadataRepository = syncMetadataRepository
     }
     
     // MARK: - Methods
@@ -71,7 +75,13 @@ final class DefaultSyncService: SyncService {
                         errorMessage: error.localizedDescription
                     )
                 }
+                
             }
+            
+            try await syncMetadataRepository.saveLastSuccessfulSync(
+                Date()
+            )
+            
         } catch {
             print("Sync failed:", error)
         }

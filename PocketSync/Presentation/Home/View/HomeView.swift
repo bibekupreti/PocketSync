@@ -30,7 +30,6 @@ struct HomeView: View {
     // MARK: - Body
     var body: some View {
         VStack(alignment: .leading) {
-            NetworkStatusView(networkStatus: .online)
             
             MonthlySummaryCard(summary: viewModel.monthlySummary)
             

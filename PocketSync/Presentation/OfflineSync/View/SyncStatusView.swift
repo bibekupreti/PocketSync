@@ -32,6 +32,7 @@ struct SyncStatusView: View {
                 
                 SyncSummaryCard(
                     pendingCount: viewModel.pendingCount,
+                    syncedCount: viewModel.syncedCount,
                     failedCount: viewModel.failedCount,
                     lastSync: viewModel.lastSync
                 )
@@ -84,7 +85,11 @@ private extension SyncStatusView {
         
         VStack(alignment: .leading, spacing: 16) {
             
-            Label("Automatic Sync", systemImage: "arrow.triangle.2.circlepath")
+            HStack {
+                Image(systemName: "arrow.triangle.2.circlepath")
+                Text("Automatic Sync")
+                    .bodyStyle()
+            }
             
             Divider()
             
@@ -93,8 +98,8 @@ PocketSync automatically syncs your expenses whenever an internet connection bec
 
 You never need to manually start synchronization.
 """)
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
+            .captionStyle()
+//            .foregroundStyle(.secondary)
             
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -148,19 +153,3 @@ You never need to manually start synchronization.
     }
 }
 
-#Preview {
-    
-    let repository = MockExpenseRepository()
-    
-    let monitor = NetworkMonitor()
-    
-    NavigationStack {
-        
-        SyncStatusView(
-            viewModel: SyncStatusViewModel(
-                repository: repository,
-                networkMonitor: monitor
-            )
-        )
-    }
-}

@@ -10,12 +10,22 @@ import SwiftUI
 struct SyncSummaryCard: View {
 
     let pendingCount: Int
+    let syncedCount: Int
     let failedCount: Int
     let lastSync: Date?
 
     var body: some View {
 
         VStack(spacing: 0) {
+            
+            SyncStatRow(
+                title: "Synced Items",
+                value: "\(syncedCount)",
+                icon: "checkmark.circle",
+                tint: .green
+            )
+            
+            Divider()
 
             SyncStatRow(
                 title: "Pending Items",
